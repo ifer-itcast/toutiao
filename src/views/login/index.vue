@@ -5,11 +5,21 @@
     <!-- 表单 -->
     <van-form @submit="onSubmit">
       <!-- 手机号 -->
-      <van-field name="手机号" placeholder="请输入手机号">
+      <van-field
+        type="number"
+        name="手机号"
+        placeholder="请输入手机号"
+        v-model="user.mobile"
+      >
         <i slot="left-icon" class="iconfont iconshouji"></i>
       </van-field>
       <!-- 验证码 -->
-      <van-field type="password" name="验证码" placeholder="请输入验证码">
+      <van-field
+        type="number"
+        name="验证码"
+        placeholder="请输入验证码"
+        v-model="user.code"
+      >
         <i slot="left-icon" class="iconfont iconyanzhengma"></i>
         <template #button>
           <van-button
@@ -32,12 +42,17 @@
 </template>
 
 <script>
+import { login } from '@/api/user'
 export default {
   name: 'LoginPage',
   components: {},
   props: {},
   data() {
     return {
+      user: {
+        mobile: '13911111111',
+        code: '246810'
+      }
     }
   },
   computed: {},
@@ -45,8 +60,21 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    onSubmit(values) {
-      console.log('submit', values)
+    async onSubmit() {
+      // 1. 获取表单数据
+      // 2. 表单验证
+      // 3. 提交表单请求登录
+      try {
+        const res = await login(this.user)
+        console.log(res, '登录成功')
+      } catch (err) {
+        if (err.response.status === 400) {
+          console.log('手机号或验证码错误')
+        } else {
+          console.log(err, '登录失败')
+        }
+      }
+      // 4. 根据响应结果做出对应操作
     }
   }
 }

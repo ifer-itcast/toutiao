@@ -26,7 +26,7 @@
       >
         <i slot="left-icon" class="iconfont iconyanzhengma"></i>
         <template #button>
-          <van-count-down v-if="isCountDownShow" :time="1000 * 10" @finish="isCountDownShow = false" />
+          <van-count-down v-if="isCountDownShow" :time="1000 * 60" @finish="isCountDownShow = false" />
           <van-button
             v-else
             class="send-sms-btn"
@@ -40,7 +40,7 @@
         </template>
       </van-field>
       <div class="login-btn-wrap">
-        <van-button class="login-btn" block type="info" native-type="button">
+        <van-button class="login-btn" block type="info" native-type="submit">
           提交
         </van-button>
       </div>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { login } from '@/api/user'
+import { login, sendSms } from '@/api/user'
 export default {
   name: 'LoginPage',
   components: {},
@@ -122,6 +122,17 @@ export default {
       // 2. 验证通过，显示倒计时
       this.isCountDownShow = true // 显示倒计时
       // 3. 请求发送验证码
+      try {
+        await sendSms(this.user.mobile)
+        this.$toast('发送成功')
+      } catch (err) {
+        this.isCountDownShow = false // 发送失败，关闭倒计时
+        if (err.response.status === 429) {
+          this.$toast('发送太频繁了，请稍后重试')
+        } else {
+          this.$toast('发送失败，请稍后重试')
+        }
+      }
     }
   }
 }

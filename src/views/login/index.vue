@@ -26,7 +26,11 @@
       >
         <i slot="left-icon" class="iconfont iconyanzhengma"></i>
         <template #button>
-          <van-count-down v-if="isCountDownShow" :time="1000 * 60" @finish="isCountDownShow = false" />
+          <van-count-down
+            v-if="isCountDownShow"
+            :time="1000 * 60"
+            @finish="isCountDownShow = false"
+          />
           <van-button
             v-else
             class="send-sms-btn"
@@ -57,8 +61,8 @@ export default {
   data() {
     return {
       user: {
-        mobile: '', // 13911111111
-        code: '' // 246810
+        mobile: '13911111111', // 13911111111
+        code: '246810' // 246810
       },
       userFormRules: {
         mobile: [
@@ -101,7 +105,9 @@ export default {
         duration: 0
       })
       try {
-        await login(user)
+        const { data } = await login(user)
+        // 设置数据到 Vuex
+        this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
       } catch (err) {
         if (err.response.status === 400) {

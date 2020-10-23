@@ -7,6 +7,7 @@
       <!-- 手机号 -->
       <van-field
         type="number"
+        maxlength="11"
         name="手机号"
         placeholder="请输入手机号"
         v-model="user.mobile"
@@ -17,6 +18,7 @@
       <!-- 验证码 -->
       <van-field
         type="number"
+        maxlength="6"
         name="验证码"
         placeholder="请输入验证码"
         v-model="user.code"

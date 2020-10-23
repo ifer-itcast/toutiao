@@ -62,16 +62,22 @@ export default {
   methods: {
     async onSubmit() {
       // 1. 获取表单数据
+      const user = this.user
       // 2. 表单验证
       // 3. 提交表单请求登录
+      this.$toast.loading({
+        message: '登陆中...',
+        forbidClick: true,
+        duration: 0
+      })
       try {
-        const res = await login(this.user)
-        console.log(res, '登录成功')
+        await login(user)
+        this.$toast.success('登录成功')
       } catch (err) {
         if (err.response.status === 400) {
-          console.log('手机号或验证码错误')
+          this.$toast.fail('手机号或验证码错误')
         } else {
-          console.log(err, '登录失败')
+          this.$toast.fail('登录失败，请稍后重试')
         }
       }
       // 4. 根据响应结果做出对应操作

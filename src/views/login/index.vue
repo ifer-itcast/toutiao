@@ -116,12 +116,12 @@ export default {
       try {
         // 1. 校验手机号，'mobile' 对应的是 name 属性值
         await this.$refs.loginForm.validate('mobile')
-        // 2. 验证通过，显示倒计时
-        // 3. 请求发送验证码
       } catch (err) {
         return console.log('验证失败', err)
       }
+      // 2. 验证通过，显示倒计时
       this.isCountDownShow = true // 显示倒计时
+      // 3. 请求发送验证码
     }
   }
 }

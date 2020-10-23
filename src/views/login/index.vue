@@ -26,7 +26,9 @@
       >
         <i slot="left-icon" class="iconfont iconyanzhengma"></i>
         <template #button>
+          <van-count-down v-if="isCountDownShow" :time="1000 * 10" @finish="isCountDownShow = false" />
           <van-button
+            v-else
             class="send-sms-btn"
             native-type="button"
             round
@@ -79,7 +81,8 @@ export default {
             message: '验证码格式错误'
           }
         ]
-      }
+      },
+      isCountDownShow: false // 是否展示倒计时
     }
   },
   computed: {},
@@ -118,6 +121,7 @@ export default {
       } catch (err) {
         return console.log('验证失败', err)
       }
+      this.isCountDownShow = true // 显示倒计时
     }
   }
 }

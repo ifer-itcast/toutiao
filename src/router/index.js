@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: '/',
-    name: 'layout',
+    // name: 'layout', // 拥有默认子路由时，此 name 没有意义
     component: () => import('@/views/layout'),
     children: [
       {

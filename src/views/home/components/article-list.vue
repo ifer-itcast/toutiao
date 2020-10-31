@@ -6,7 +6,11 @@
       finished-text="没有更多了"
       @load="onLoad"
     >
-      <van-cell v-for="item in list" :key="item" :title="item" />
+      <van-cell
+        v-for="(article, index) in list"
+        :key="index"
+        :title="article.title"
+      />
     </van-list>
   </div>
 </template>
@@ -25,7 +29,8 @@ export default {
     return {
       list: [], // 存储列表数据的数组
       loading: false, // 控制加载中 loading 状态，默认不 loading
-      finished: false // 数据是否加载完成
+      finished: false, // 数据是否加载完成
+      timestamp: null // 请求获取下一页数据的时间戳
     }
   },
   methods: {
@@ -39,11 +44,19 @@ export default {
           timestamp: Date.now(),
           with_top: 1 // 是否包含置顶
         })
-        console.log(data)
         // 2. 把请求结果数据放到 list 数组中
+        const { results } = data.data
+        this.list.push(...results)
         // 3. 本次数据加载完毕后要把 loading 设置为 false，loading 关闭后才能触发下一次的加载更多
-        // this.loading = false
+        this.loading = false
         // 4. 数据加载完毕后，要把 finished 设置为 true，不再触发加载更多了
+        if (results.length) {
+          // 更新时间戳，用于获取下一页数据
+          this.timestamp = data.data.pre_timestamp
+        } else {
+          // 没有数据了
+          this.finished = true
+        }
       } catch (err) {}
     }
   }

@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { getArticles } from '@/api/article'
 export default {
   name: 'ArticleList',
   props: {
@@ -28,18 +29,22 @@ export default {
     }
   },
   methods: {
-    onLoad() {
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 本次数据加载完毕后要把 loading 设置为 false，loading 关闭后才能触发下一次的加载更多
-        this.loading = false
-        // 数据加载完毕后，要把 finished 设置为 true，不再触发加载更多了
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 1000)
+    async onLoad() {
+      try {
+        // 1. 请求获取数据
+        const { data } = await getArticles({
+          channel_id: this.channel.id, // 频道 ID
+          // 请求数据的页码，请求第 1 页数据，用当前最新时间戳
+          // 用于请求之后数据的时间戳会在当前请求的返回值中给出
+          timestamp: Date.now(),
+          with_top: 1 // 是否包含置顶
+        })
+        console.log(data)
+        // 2. 把请求结果数据放到 list 数组中
+        // 3. 本次数据加载完毕后要把 loading 设置为 false，loading 关闭后才能触发下一次的加载更多
+        // this.loading = false
+        // 4. 数据加载完毕后，要把 finished 设置为 true，不再触发加载更多了
+      } catch (err) {}
     }
   }
 }

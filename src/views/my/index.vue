@@ -7,6 +7,41 @@
         <span class="text">登录 / 注册</span>
       </div>
     </div>
+    <!-- 已登录 -->
+    <div class="header user-info">
+      <div class="base-info">
+        <div class="left">
+          <van-image
+            class="avatar"
+            round
+            fit="cover"
+            src="https://img.yzcdn.cn/vant/cat.jpeg"
+          />
+          <span class="name">黑马头条号</span>
+        </div>
+        <div class="right">
+          <van-button size="mini" round>编辑资料</van-button>
+        </div>
+      </div>
+      <div class="data-stats">
+        <div class="data-item">
+          <span class="count">10</span>
+          <span class="text">头条</span>
+        </div>
+        <div class="data-item">
+          <span class="count">10</span>
+          <span class="text">头条</span>
+        </div>
+        <div class="data-item">
+          <span class="count">10</span>
+          <span class="text">头条</span>
+        </div>
+        <div class="data-item">
+          <span class="count">10</span>
+          <span class="text">头条</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

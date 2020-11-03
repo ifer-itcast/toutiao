@@ -36,6 +36,7 @@
             round
             size="small"
             @click="onFollow"
+            :loading="followLoading"
             >已关注</van-button
           >
           <van-button
@@ -47,6 +48,7 @@
             size="small"
             icon="plus"
             @click="onFollow"
+            :loading="followLoading"
             >关注</van-button
           >
         </van-cell>
@@ -111,7 +113,8 @@ export default {
     return {
       article: {}, // 文章详情
       loading: true, // 加载中的状态
-      errStatus: 0 // 失败的状态码
+      errStatus: 0, // 失败的状态码
+      followLoading: false // 关注按钮的 loading 状态
     }
   },
   computed: {},
@@ -160,6 +163,7 @@ export default {
       })
     },
     async onFollow() {
+      this.followLoading = true // 打开关注按钮的 loading
       try {
         if (this.article.is_followed) {
           // 已关注，取消关注
@@ -178,6 +182,7 @@ export default {
         }
         this.$toast(message)
       }
+      this.followLoading = false // 关闭按钮的 loading 状态
     }
   }
 }

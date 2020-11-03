@@ -14,8 +14,11 @@
         v-for="(channel, index) in myChannels"
         :key="index"
         icon="clear"
-        :text="channel.name"
       >
+        <!-- 对象中的 key 代表要作用的 css 类名 -->
+        <span class="text" slot="text" :class="{ active: index === active }">{{
+          channel.name
+        }}</span>
       </van-grid-item>
     </van-grid>
     <!-- 频道推荐标题 -->

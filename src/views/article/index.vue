@@ -4,7 +4,13 @@
 
 <script>
 export default {
-  name: 'ArticleIndex'
+  name: 'ArticleIndex',
+  props: {
+    articleId: {
+      type: [Number, String],
+      required: true
+    }
+  }
 }
 </script>
 

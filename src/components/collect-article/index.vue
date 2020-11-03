@@ -1,10 +1,11 @@
 <template>
   <!-- :color="value ? '#ffa500' : ''" -->
-  <van-icon
-    :name="value ? 'star' : 'star-o'"
+  <van-button
+    :icon="value ? 'star' : 'star-o'"
     :class="{
       collected: value
     }"
+    :loading="loading"
     @click="onCollect"
   />
 </template>
@@ -54,6 +55,8 @@ export default {
 
 <style lang="less" scoped>
 .collected {
-  color: #ffa500 !important;
+  .van-icon {
+    color: #ffa500;
+  }
 }
 </style>

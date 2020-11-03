@@ -48,7 +48,11 @@
         <!-- /用户信息 -->
 
         <!-- 文章内容 -->
-        <div class="article-content markdown-body" v-html="article.content"></div>
+        <div
+          class="article-content markdown-body"
+          v-html="article.content"
+          ref="article-content"
+        ></div>
         <van-divider>正文结束</van-divider>
       </div>
       <!-- /加载完成-文章详情 -->
@@ -86,6 +90,8 @@
 
 <script>
 import { getArticleById } from '@/api/article'
+import { ImagePreview } from 'vant'
+// 测试 => http://localhost:8080/#/article/140911
 export default {
   name: 'ArticleIndex',
   components: {},
@@ -107,17 +113,23 @@ export default {
   created() {
     this.loadArticle()
   },
-  mounted() {},
+  mounted() {
+    // mounted 里面也是拿不到的，因为获取数据的操作是异步（渲染又在获取数据之后）
+    // console.log(this.$refs['article-content'])
+  },
   methods: {
     async loadArticle() {
       this.loading = true
       // console.log(this.articleId.toString(), 233)
       try {
         const { data } = await getArticleById(this.articleId.toString())
-        if (Math.random() > 0.5) {
+        /* if (Math.random() > 0.5) {
           JSON.parse('xxx')
-        }
+        } */
         this.article = data.data
+        setTimeout(() => {
+          this.previewImage()
+        }, 0)
       } catch (err) {
         if (err.response && err.response.status === 404) {
           this.errStatus = 404
@@ -126,6 +138,20 @@ export default {
       }
       // 关闭 loading 状态
       this.loading = false
+    },
+    previewImage() {
+      const articleContent = this.$refs['article-content']
+      const imgs = articleContent.querySelectorAll('img')
+      const images = []
+      imgs.forEach((img, index) => {
+        images.push(img.src)
+        img.onclick = function() {
+          ImagePreview({
+            images,
+            startPosition: index
+          })
+        }
+      })
     }
   }
 }
@@ -133,7 +159,7 @@ export default {
 
 <style scoped lang="less">
 // 测试 => http://localhost:8080/#/article/138567
-@import "./github-markdown.css";
+@import './github-markdown.css';
 .article-container {
   .main-wrap {
     position: fixed;

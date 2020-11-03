@@ -43,6 +43,10 @@ export default {
     myChannels: {
       type: Array,
       required: true
+    },
+    active: {
+      type: Number,
+      required: true
     }
   }
 }

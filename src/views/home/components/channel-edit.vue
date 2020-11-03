@@ -13,6 +13,7 @@
         class="grid-item"
         v-for="(channel, index) in myChannels"
         :key="index"
+        @click="onMyChannelClick(channel, index)"
       >
         <van-icon v-show="isEdit && !fixedChannels.includes(channel.id)" slot="icon" name="clear"></van-icon>
         <!-- 对象中的 key 代表要作用的 css 类名 -->
@@ -98,6 +99,15 @@ export default {
     },
     onAddChannel(channel) {
       this.myChannels.push(channel)
+    },
+    onMyChannelClick(channel, index) {
+      // 如果是编辑状态，删除频道
+      if (this.isEdit) {
+
+      } else {
+        // 非编辑状态，切换频道
+        this.$emit('update-active', index)
+      }
     }
   }
 }

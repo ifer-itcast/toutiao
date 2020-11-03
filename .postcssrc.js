@@ -9,7 +9,8 @@ module.exports = {
         // file => 要编译的样式的路径
         return file.includes('vant') ? 37.5 : 75
       },
-      propList: ['*']
+      propList: ['*'],
+      exclude: 'github-markdown.css'
     }
   }
 }

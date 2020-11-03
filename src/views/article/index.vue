@@ -89,7 +89,7 @@ export default {
   components: {},
   props: {
     articleId: {
-      type: [Number, String],
+      type: [Number, String, Object],
       required: true
     }
   },

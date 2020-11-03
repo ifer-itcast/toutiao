@@ -3,8 +3,14 @@
     <!-- 我的频道标题 -->
     <van-cell :border="false">
       <div slot="title" class="title-text">我的频道</div>
-      <van-button class="edit-btn" type="danger" plain round size="mini" @click="isEdit = !isEdit"
-        >{{isEdit ? '完成' : '编辑'}}</van-button
+      <van-button
+        class="edit-btn"
+        type="danger"
+        plain
+        round
+        size="mini"
+        @click="isEdit = !isEdit"
+        >{{ isEdit ? '完成' : '编辑' }}</van-button
       >
     </van-cell>
     <!-- 我的频道内容 -->
@@ -15,7 +21,11 @@
         :key="index"
         @click="onMyChannelClick(channel, index)"
       >
-        <van-icon v-show="isEdit && !fixedChannels.includes(channel.id)" slot="icon" name="clear"></van-icon>
+        <van-icon
+          v-show="isEdit && !fixedChannels.includes(channel.id)"
+          slot="icon"
+          name="clear"
+        ></van-icon>
         <!-- 对象中的 key 代表要作用的 css 类名 -->
         <span class="text" slot="text" :class="{ active: index === active }">{{
           channel.name
@@ -42,7 +52,11 @@
 </template>
 
 <script>
-import { getAllChannels, addUserChannel } from '@/api/channel'
+import {
+  getAllChannels,
+  addUserChannel,
+  deleteUserChannel
+} from '@/api/channel'
 import { mapState } from 'vuex'
 import { setItem } from '@/utils/storage'
 export default {
@@ -131,9 +145,25 @@ export default {
           this.$emit('update-active', this.active - 1)
         }
         this.myChannels.splice(index, 1)
+
+        // 数据持久化
+        this.deleteChannel(channel)
       } else {
         // 非编辑状态，切换频道
         this.$emit('update-active', index, false)
+      }
+    },
+    async deleteChannel(channel) {
+      try {
+        if (this.user) {
+          // 已登录，将数据更新到后端
+          await deleteUserChannel(channel.id)
+        } else {
+          // 未登录，将数据更新到本地
+          setItem('TOUTIAO_CHANNELS', this.myChannels)
+        }
+      } catch (err) {
+        this.$toast('操作失败，请稍后重试')
       }
     }
   }

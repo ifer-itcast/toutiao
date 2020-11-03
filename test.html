@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+const allChannels = [{ "id": 0, "name": "开发者资讯" }, { "id": 1, "name": "666" }];
+const myChannels = [{ "id": 0, "name": "开发者资讯" }, { "id": 6, "name": "css" }];
+const r = allChannels.filter(channel => {
+  return !myChannels.find(myChannel => myChannel.id === channel.id)
+});
+console.log(r);
+  </script>
+</body>
+
+</html>

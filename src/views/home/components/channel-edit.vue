@@ -29,10 +29,10 @@
     <van-grid class="recommend-grid" :gutter="10">
       <van-grid-item
         class="grid-item"
-        v-for="(value, index) in 8"
+        v-for="(channel, index) in recommendChannels"
         :key="index"
         icon="plus"
-        text="文字"
+        :text="channel.name"
       >
       </van-grid-item>
     </van-grid>
@@ -53,16 +53,39 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       allChannels: [] // 所有频道
     }
   },
-  created () {
+  computed: {
+    /* recommendChannels() {
+      const channels = []
+      this.allChannels.forEach(channel => {
+        // find 找到符合条件的第一个就返回，后面就不再查找！
+        const ret = this.myChannels.find(
+          myChannel => myChannel.id === channel.id
+        )
+        // 我的频道没有找到 channel，则收集
+        if (!ret) {
+          channels.push(channel)
+        }
+      })
+      return channels
+    } */
+    recommendChannels() {
+      // filter 把符合条件的元素返回到新数组
+      return this.allChannels.filter(channel => {
+        // find 找到符合条件的第一个就返回，后面就不再查找！
+        return !this.myChannels.find(myChannel => myChannel.id === channel.id)
+      })
+    }
+  },
+  created() {
     this.loadAllChannels()
   },
   methods: {
-    async loadAllChannels () {
+    async loadAllChannels() {
       try {
         const { data } = await getAllChannels()
         this.allChannels = data.data.channels
@@ -72,6 +95,14 @@ export default {
     }
   }
 }
+
+// 代码测试
+/* const allChannels = [{ "id": 0, "name": "开发者资讯" }, { "id": 1, "name": "666" }];
+const myChannels = [{ "id": 0, "name": "开发者资讯" }, { "id": 6, "name": "css" }];
+const r = allChannels.filter(channel => {
+  return !myChannels.find(myChannel => myChannel.id === channel.id)
+});
+console.log(r); */
 </script>
 
 <style scoped lang="less">

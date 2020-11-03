@@ -11,10 +11,10 @@
     <van-grid class="my-grid" :gutter="10">
       <van-grid-item
         class="grid-item"
-        v-for="(value, index) in 8"
+        v-for="(channel, index) in myChannels"
         :key="index"
-        text="文字"
         icon="clear"
+        :text="channel.name"
       >
       </van-grid-item>
     </van-grid>
@@ -38,7 +38,13 @@
 
 <script>
 export default {
-  name: 'ChannelEdit'
+  name: 'ChannelEdit',
+  props: {
+    myChannels: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 

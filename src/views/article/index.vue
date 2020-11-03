@@ -72,7 +72,7 @@
       <!-- 这里在 info 替换成 badge -->
       <van-icon name="comment-o" badge="123" color="#777" />
       <!-- 文章收藏 -->
-      <collect-article></collect-article>
+      <collect-article class="btn-item" />
       <van-icon color="#777" name="good-job-o" />
       <van-icon name="share" color="#777777"></van-icon>
     </div>
@@ -184,12 +184,18 @@ export default {
     position: fixed;
     left: 0;
     right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+  }
+  .article-detail {
+    position: fixed;
+    left: 0;
+    right: 0;
     top: 92px;
     bottom: 88px;
     overflow-y: scroll;
     background-color: #fff;
-  }
-  .article-detail {
     .article-title {
       font-size: 40px;
       padding: 50px 32px;
@@ -285,10 +291,27 @@ export default {
     }
     /deep/ .van-icon {
       font-size: 40px;
+    }
+    .comment-icon {
+      top: 2px;
+      color: #777;
       .van-info {
         font-size: 16px;
         background-color: #e22829;
       }
+    }
+    .btn-item {
+      border: none;
+      padding: 0;
+      height: 40px;
+      line-height: 40px;
+      color: #777777
+    }
+    .collect-btn--collected {
+      color: #ffa500;
+    }
+    .like-btn--liked {
+      color: #e5645f;
     }
   }
 }

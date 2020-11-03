@@ -1,7 +1,5 @@
 <template>
-  <div class="collect-article">
-    <van-icon color="#777" name="star-o" />
-  </div>
+  <van-icon name="star-o" />
 </template>
 
 <script>
@@ -10,6 +8,4 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

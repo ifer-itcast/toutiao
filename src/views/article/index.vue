@@ -30,33 +30,21 @@
           <div slot="label" class="publish-date">
             {{ article.pubdate | relativeTime }}
           </div>
-          <!-- <van-button
-            v-if="article.is_followed"
-            class="follow-btn"
-            round
-            size="small"
-            @click="onFollow"
-            :loading="followLoading"
-            >已关注</van-button
-          >
-          <van-button
-            v-else
-            class="follow-btn"
-            type="info"
-            color="#3296fa"
-            round
-            size="small"
-            icon="plus"
-            @click="onFollow"
-            :loading="followLoading"
-            >关注</van-button
-          > -->
           <!-- class 会直接作用于组件的根节点上 -->
-          <follow-user
+          <!-- <follow-user
             class="follow-btn"
             :is-followed="article.is_followed"
             :user-id="article.aut_id"
             @update-is_followed="article.is_followed = $event"
+          ></follow-user> -->
+          <!-- 当传递给子组件的数据，既要使用也要修改 -->
+          <!-- value="article.is_followed" -->
+          <!-- @input="article.is_followed=$event" -->
+          <!-- 可以通过子组件的model属性自定义value和input 事件 -->
+          <follow-user
+            class="follow-btn"
+            v-model="article.is_followed"
+            :user-id="article.aut_id"
           ></follow-user>
         </van-cell>
         <!-- /用户信息 -->

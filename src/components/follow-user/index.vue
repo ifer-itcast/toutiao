@@ -24,6 +24,10 @@
 import { addFollow, deleteFollow } from '@/api/user'
 export default {
   name: 'FollowUser',
+  model: {
+    prop: 'isFollowed', // 默认是 value
+    event: 'update-is_followed' // 默认是 input
+  },
   props: {
     isFollowed: {
       type: Boolean,
@@ -52,6 +56,7 @@ export default {
         }
         // 更新视图状态
         this.$emit('update-is_followed', !this.isFollowed)
+        // this.$emit('input', !this.value)
       } catch (err) {
         let message = '操作失败，请重试！'
         // 例如用户关注自己会报错

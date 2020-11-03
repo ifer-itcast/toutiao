@@ -13,6 +13,6 @@ export const getArticles = params => {
 export const getArticleById = articleId => {
   return request({
     method: 'GET',
-    url: `/app/v1_1/articles/${articleId}`
+    url: `/app/v1_0/articles/${articleId}`
   })
 }

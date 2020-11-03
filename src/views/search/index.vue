@@ -35,6 +35,7 @@
 import SearchHistory from './components/search-history'
 import SearchSuggestion from './components/search-suggestion'
 import SearchResult from './components/search-result'
+import { setItem, getItem } from '@/utils/storage'
 
 export default {
   name: 'SearchIndex',
@@ -47,8 +48,16 @@ export default {
     return {
       searchText: '',
       isResultShow: false, // 控制搜索结果的展示
-      searchHistories: []
+      searchHistories: getItem('TOUTIAO_SEARCH_HISTORIES') || []
     }
+  },
+  watch: {
+    searchHistories(value) {
+      setItem('TOUTIAO_SEARCH_HISTORIES', value)
+    }
+    /* searchHistories: {
+      handler () {}
+    } */
   },
   methods: {
     onSearch(val) {

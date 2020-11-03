@@ -103,10 +103,18 @@ export default {
     onMyChannelClick(channel, index) {
       // 如果是编辑状态，删除频道
       if (this.isEdit) {
-
+        if (this.fixedChannels.includes(channel.id)) {
+          // 如果是固定频道则不删除
+          return
+        }
+        if (index <= this.active) {
+          // 让激活频道的索引 - 1
+          this.$emit('update-active', this.active - 1)
+        }
+        this.myChannels.splice(index, 1)
       } else {
         // 非编辑状态，切换频道
-        this.$emit('update-active', index)
+        this.$emit('update-active', index, false)
       }
     }
   }

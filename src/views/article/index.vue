@@ -30,17 +30,6 @@
           <div slot="label" class="publish-date">
             {{ article.pubdate | relativeTime }}
           </div>
-          <!-- class 会直接作用于组件的根节点上 -->
-          <!-- <follow-user
-            class="follow-btn"
-            :is-followed="article.is_followed"
-            :user-id="article.aut_id"
-            @update-is_followed="article.is_followed = $event"
-          ></follow-user> -->
-          <!-- 当传递给子组件的数据，既要使用也要修改 -->
-          <!-- value="article.is_followed" -->
-          <!-- @input="article.is_followed=$event" -->
-          <!-- 可以通过子组件的model属性自定义value和input 事件 -->
           <follow-user
             class="follow-btn"
             v-model="article.is_followed"
@@ -82,7 +71,8 @@
       >
       <!-- 这里在 info 替换成 badge -->
       <van-icon name="comment-o" badge="123" color="#777" />
-      <van-icon color="#777" name="star-o" />
+      <!-- 文章收藏 -->
+      <collect-article></collect-article>
       <van-icon color="#777" name="good-job-o" />
       <van-icon name="share" color="#777777"></van-icon>
     </div>
@@ -94,12 +84,12 @@
 import { getArticleById } from '@/api/article'
 import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user'
-// import { addFollow, deleteFollow } from '@/api/user'
-// 测试 => http://localhost:8080/#/article/140911
+import CollectArticle from '@/components/collect-article'
 export default {
   name: 'ArticleIndex',
   components: {
-    FollowUser
+    FollowUser,
+    CollectArticle
   },
   props: {
     articleId: {
@@ -293,7 +283,7 @@ export default {
       line-height: 46px;
       color: #a7a7a7;
     }
-    .van-icon {
+    /deep/ .van-icon {
       font-size: 40px;
       .van-info {
         font-size: 16px;

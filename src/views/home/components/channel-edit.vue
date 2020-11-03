@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { getAllChannels } from '@/api/channel'
 export default {
   name: 'ChannelEdit',
   props: {
@@ -50,6 +51,24 @@ export default {
     active: {
       type: Number,
       required: true
+    }
+  },
+  data () {
+    return {
+      allChannels: [] // 所有频道
+    }
+  },
+  created () {
+    this.loadAllChannels()
+  },
+  methods: {
+    async loadAllChannels () {
+      try {
+        const { data } = await getAllChannels()
+        this.allChannels = data.data.channels
+      } catch {
+        this.$toast('数据获取失败')
+      }
     }
   }
 }

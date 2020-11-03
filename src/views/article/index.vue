@@ -30,7 +30,7 @@
           <div slot="label" class="publish-date">
             {{ article.pubdate | relativeTime }}
           </div>
-          <van-button
+          <!-- <van-button
             v-if="article.is_followed"
             class="follow-btn"
             round
@@ -50,7 +50,14 @@
             @click="onFollow"
             :loading="followLoading"
             >关注</van-button
-          >
+          > -->
+          <!-- class 会直接作用于组件的根节点上 -->
+          <follow-user
+            class="follow-btn"
+            :is-followed="article.is_followed"
+            :user-id="article.aut_id"
+            @update-is_followed="article.is_followed = $event"
+          ></follow-user>
         </van-cell>
         <!-- /用户信息 -->
 
@@ -98,11 +105,14 @@
 <script>
 import { getArticleById } from '@/api/article'
 import { ImagePreview } from 'vant'
-import { addFollow, deleteFollow } from '@/api/user'
+import FollowUser from '@/components/follow-user'
+// import { addFollow, deleteFollow } from '@/api/user'
 // 测试 => http://localhost:8080/#/article/140911
 export default {
   name: 'ArticleIndex',
-  components: {},
+  components: {
+    FollowUser
+  },
   props: {
     articleId: {
       type: [Number, String, Object],
@@ -161,8 +171,8 @@ export default {
           })
         }
       })
-    },
-    async onFollow() {
+    }
+    /* async onFollow() {
       this.followLoading = true // 打开关注按钮的 loading
       try {
         if (this.article.is_followed) {
@@ -183,7 +193,7 @@ export default {
         this.$toast(message)
       }
       this.followLoading = false // 关闭按钮的 loading 状态
-    }
+    } */
   }
 }
 </script>

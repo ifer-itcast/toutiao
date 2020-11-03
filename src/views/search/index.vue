@@ -1,7 +1,7 @@
 <template>
   <div class="search-container">
     <!-- 搜索栏 -->
-    <form action="/">
+    <form action="/" class="search-form">
       <!-- 获取焦点时，显示联想建议或搜索历史（取决于有没有 searchText） -->
       <van-search
         v-model="searchText"
@@ -59,8 +59,16 @@ export default {
 
 <style lang="less" scoped>
 .search-container {
+  padding-top: 108px;
   .van-search__action {
     color: #fff;
+  }
+  .search-form {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
   }
 }
 </style>

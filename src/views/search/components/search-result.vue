@@ -4,14 +4,21 @@
       v-model="loading"
       :finished="finished"
       finished-text="没有更多了"
+      :error.sync="error"
+      error-text="加载失败，请点击重试"
       @load="onLoad"
     >
-      <van-cell v-for="item in list" :key="item" :title="item" />
+      <van-cell
+        v-for="(article, index) in list"
+        :key="index"
+        :title="article.title"
+      />
     </van-list>
   </div>
 </template>
 
 <script>
+import { getSearchResult } from '@/api/search'
 export default {
   name: 'SearchResult',
   props: {
@@ -24,26 +31,48 @@ export default {
     return {
       list: [],
       loading: false,
-      finished: false
+      finished: false,
+      page: 1,
+      perPage: 20,
+      error: false
     }
   },
   methods: {
-    onLoad() {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
+    async onLoad() {
+      try {
+        // 1
+        const { data } = await getSearchResult({
+          page: this.page, // 页码
+          per_page: this.perPage, // 每页条数
+          q: this.searchText // 查询关键词
+        })
+        if (Math.random() > 0.5) {
+          JSON.parse('xxx')
         }
-
-        // 加载状态结束
+        // 2
+        const { results } = data.data
+        this.list.push(...results)
+        // 3
         this.loading = false
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
+        // 4
+        if (results.length) {
+          // 4.1
+          this.page++
+        } else {
+          // 4.2
           this.finished = true
         }
-      }, 1000)
+      } catch (err) {
+        this.error = true // 展示加载失败
+        this.loading = false // 关闭 loading
+        // this.$toast('数据获取失败，请稍后重试')
+      }
+      // 1. 请求数据
+      // 2. 将数据添加到数组列表中
+      // 3. 将本次加载中的 loading 关闭
+      // 4. 判断是否还有数据
+      // 4.1 如果有，则更新获取下一个数据的页码
+      // 4.2 如果无，则将加载状态 finished 设置为结束
     }
   }
 }

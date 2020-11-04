@@ -46,7 +46,10 @@
         ></div>
         <van-divider>正文结束</van-divider>
         <!-- 文章评论列表 -->
-        <comment-list :source="article.art_id" />
+        <comment-list
+          :source="article.art_id"
+          @onload-success="totalCommentCount = $event.total_count"
+        />
 
         <!-- 底部区域 -->
         <div class="article-bottom">
@@ -54,7 +57,7 @@
             >写评论</van-button
           >
           <!-- 这里在 info 替换成 badge -->
-          <van-icon name="comment-o" badge="123" color="#777" />
+          <van-icon name="comment-o" :badge="totalCommentCount" color="#777" />
           <!-- 文章收藏 -->
           <collect-article
             class="btn-item"
@@ -117,7 +120,8 @@ export default {
       article: {}, // 文章详情
       loading: true, // 加载中的状态
       errStatus: 0, // 失败的状态码
-      followLoading: false // 关注按钮的 loading 状态
+      followLoading: false, // 关注按钮的 loading 状态
+      totalCommentCount: 0
     }
   },
   computed: {},

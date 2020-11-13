@@ -107,7 +107,7 @@
     </div>
     <!-- 评论回复 -->
     <van-popup v-model="isReplyShow" position="bottom" style="height: 100%;">
-      hello
+      <comment-reply></comment-reply>
     </van-popup>
     <!-- /评论回复 -->
   </div>
@@ -121,6 +121,7 @@ import CollectArticle from '@/components/collect-article'
 import LikeArticle from '@/components/like-article'
 import CommentList from './components/comment-list'
 import CommentPost from './components/comment-post'
+import CommentReply from './components/comment-reply'
 export default {
   name: 'ArticleIndex',
   components: {
@@ -128,7 +129,8 @@ export default {
     CollectArticle,
     LikeArticle,
     CommentList,
-    CommentPost
+    CommentPost,
+    CommentReply
   },
   props: {
     articleId: {

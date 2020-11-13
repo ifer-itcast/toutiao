@@ -27,7 +27,10 @@
         <span class="comment-pubdate">{{
           comment.pubdate | relativeTime
         }}</span>
-        <van-button class="reply-btn" round
+        <van-button
+          class="reply-btn"
+          round
+          @click="$emit('reply-click', comment)"
           >回复 {{ comment.reply_count }}</van-button
         >
       </div>
@@ -57,7 +60,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    async onCommentLike () {
+    async onCommentLike() {
       this.commentLoading = true
       try {
         if (this.comment.is_liking) {

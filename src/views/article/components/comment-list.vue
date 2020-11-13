@@ -38,6 +38,13 @@ export default {
     list: {
       type: Array,
       default: () => [] // 对象给默认值要以函数返回值的方式
+    },
+    type: {
+      type: String,
+      validator(value) {
+        return ['a', 'c'].includes(value)
+      },
+      default: 'a'
     }
   },
   data() {
@@ -59,8 +66,8 @@ export default {
       try {
         // 1. 请求数据
         const { data } = await getComments({
-          type: 'a', // 评论类型，a 代表对文章的评论
-          source: this.source, // 源 id，文章 id 或评论 id
+          type: this.type, // 评论类型，a 代表对文章的评论，c 代表评论的回复
+          source: this.source.toString(), // 源 id，文章 id 或评论 id
           offset: this.offset,
           limit: this.limit // 获取的个数
         })

@@ -9,9 +9,14 @@
     />
     <div slot="title" class="title-wrap">
       <div class="user-name">{{ comment.aut_name }}</div>
-      <van-button class="like-btn" icon="good-job-o">{{
-        comment.like_count || '赞'
-      }}</van-button>
+      <van-button
+        class="like-btn"
+        :class="{
+          liked: comment.is_liking
+        }"
+        :icon="comment.is_liking ? 'good-job' : 'good-job-o'"
+        >{{ comment.like_count || '赞' }}</van-button
+      >
     </div>
 
     <div slot="label">
@@ -96,6 +101,9 @@ export default {
     margin-right: 7px;
     .van-icon {
       font-size: 30px;
+    }
+    &.liked {
+      color: #e5645f;
     }
   }
 }

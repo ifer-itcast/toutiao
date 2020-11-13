@@ -137,6 +137,12 @@ export default {
     CommentPost,
     CommentReply
   },
+  // 给所有的后代组件提供数据
+  provide: function() {
+    return {
+      articleId: this.articleId
+    }
+  },
   props: {
     articleId: {
       type: [Number, String, Object],

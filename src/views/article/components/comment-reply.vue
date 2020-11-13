@@ -15,23 +15,34 @@
       <van-cell title="全部回复" />
       <comment-list :source="comment.com_id" type="c" />
       <!-- /评论回复列表 -->
-      <!-- 回复评论 -->
+      <!-- 回复评论按钮 -->
       <div class="post-wrap">
-        <van-button class="post-btn" size="small" round>写评论</van-button>
+        <van-button
+          class="post-btn"
+          size="small"
+          round
+          @click="isPostShow = true"
+          >写评论</van-button
+        >
       </div>
-      <!-- /回复评论 -->
+      <!-- /回复评论按钮 -->
     </div>
+    <van-popup v-model="isPostShow" position="bottom">
+        <comment-post :target="comment.com_id" />
+      </van-popup>
   </div>
 </template>
 
 <script>
 import CommentItem from './comment-item'
 import CommentList from './comment-list'
+import CommentPost from './comment-post'
 export default {
   name: 'CommentReply',
   components: {
     CommentItem,
-    CommentList
+    CommentList,
+    CommentPost
   },
   props: {
     comment: {
@@ -40,7 +51,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      isPostShow: false
+    }
   },
 
   methods: {}

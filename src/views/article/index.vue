@@ -138,10 +138,14 @@ export default {
       this.loading = true
       // console.log(this.articleId.toString(), 233)
       try {
-        const { data } = await getArticleById(this.articleId.toString())
+        const { data } = await getArticleById(this.articleId)
         /* if (Math.random() > 0.5) {
           JSON.parse('xxx')
         } */
+        // 后端返回的可能是 null
+        if (data.data.attitude === null) {
+          data.data.attitude = -1
+        }
         this.article = data.data
         setTimeout(() => {
           this.previewImage()

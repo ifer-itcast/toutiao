@@ -27,7 +27,7 @@
       style="height: 100%;"
       position="bottom"
     >
-      <update-name/>
+      <update-name @close="isUpdateNameShow = false" />
     </van-popup>
     <!-- /编辑昵称 -->
   </div>

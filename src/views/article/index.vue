@@ -107,7 +107,7 @@
     </div>
     <!-- 评论回复 -->
     <van-popup v-model="isReplyShow" position="bottom" style="height: 100%;">
-      <comment-reply></comment-reply>
+      <comment-reply :comment="currentComment"/>
     </van-popup>
     <!-- /评论回复 -->
   </div>
@@ -147,7 +147,8 @@ export default {
       totalCommentCount: 0,
       isPostShow: false, // 控制评论弹层显示/隐藏
       commentList: [], // 评论列表
-      isReplyShow: false
+      isReplyShow: false,
+      currentComment: {} // 当前点击回复的评论项
     }
   },
   computed: {},
@@ -206,7 +207,7 @@ export default {
       this.commentList.unshift(data.new_obj)
     },
     onReplyClick(comment) {
-      console.log(comment)
+      this.currentComment = comment
       this.isReplyShow = true
     }
   }

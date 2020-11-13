@@ -27,7 +27,11 @@
       style="height: 100%;"
       position="bottom"
     >
-      <update-name @close="isUpdateNameShow = false" />
+      <update-name
+        v-if="isUpdateNameShow"
+        v-model="user.name"
+        @close="isUpdateNameShow = false"
+      />
     </van-popup>
     <!-- /编辑昵称 -->
   </div>

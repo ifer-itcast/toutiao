@@ -48,6 +48,7 @@
         <!-- 文章评论列表 -->
         <comment-list
           :source="article.art_id"
+          :list="commentList"
           @onload-success="totalCommentCount = $event.total_count"
         />
 
@@ -80,7 +81,7 @@
         <!-- /底部区域 -->
         <!-- 发布评论的弹层 -->
         <van-popup v-model="isPostShow" position="bottom">
-          <comment-post :target="article.art_id"></comment-post>
+          <comment-post :target="article.art_id" @post-success="onPostSuccess"></comment-post>
         </van-popup>
       </div>
       <!-- /加载完成-文章详情 -->
@@ -133,7 +134,8 @@ export default {
       errStatus: 0, // 失败的状态码
       followLoading: false, // 关注按钮的 loading 状态
       totalCommentCount: 0,
-      isPostShow: false // 控制评论弹层显示/隐藏
+      isPostShow: false, // 控制评论弹层显示/隐藏
+      commentList: [] // 评论列表
     }
   },
   computed: {},
@@ -184,29 +186,13 @@ export default {
           })
         }
       })
+    },
+    onPostSuccess(data) {
+      // 关闭弹层
+      this.isPostShow = false
+      // 将发布内容展示到页面顶部
+      this.commentList.unshift(data.new_obj)
     }
-    /* async onFollow() {
-      this.followLoading = true // 打开关注按钮的 loading
-      try {
-        if (this.article.is_followed) {
-          // 已关注，取消关注
-          await deleteFollow(this.article.aut_id)
-        } else {
-          // 没有关注，添加关注
-          await addFollow(this.article.aut_id)
-        }
-        // 更新视图状态
-        this.article.is_followed = !this.article.is_followed
-      } catch (err) {
-        let message = '操作失败，请重试！'
-        // 例如用户关注自己会报错
-        if (err.response && err.response.status === 400) {
-          message = '你不能关注你自己！'
-        }
-        this.$toast(message)
-      }
-      this.followLoading = false // 关闭按钮的 loading 状态
-    } */
   }
 }
 </script>

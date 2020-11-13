@@ -3,7 +3,7 @@
     <img class="img" :src="img" ref="img" />
     <div class="toolbar">
       <div class="cancel" @click="$emit('close')">取消</div>
-      <div class="confirm">完成</div>
+      <div class="confirm" @click="onConfirm">完成</div>
     </div>
   </div>
 </template>
@@ -20,7 +20,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      cropper: null
+    }
   },
   mounted() {
     const image = this.$refs.img
@@ -34,7 +36,17 @@ export default {
       background: false // 关闭自带背景
     })
   },
-  methods: {}
+  methods: {
+    onConfirm() {
+      // 基于服务端的裁切使用 getData 方法获取裁切参数
+      // console.log(this.cropper.getData())
+
+      // 纯客户端的裁切使用 getCroppedCanvas 获取裁切的文件对象
+      this.cropper.getCroppedCanvas().toBlob(blob => {
+        console.log(blob)
+      })
+    }
+  }
 }
 </script>
 

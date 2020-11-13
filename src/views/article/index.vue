@@ -106,8 +106,13 @@
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
     </div>
     <!-- 评论回复 -->
+    <!-- 弹出层是懒渲染的：只有在第一次展示的时候才会渲染里面的内容，之后它的关闭和显示都是在切换内容的显示和隐藏 -->
     <van-popup v-model="isReplyShow" position="bottom" style="height: 100%;">
-      <comment-reply :comment="currentComment" @close="isReplyShow = false" />
+      <comment-reply
+        v-if="isReplyShow"
+        :comment="currentComment"
+        @close="isReplyShow = false"
+      />
     </van-popup>
     <!-- /评论回复 -->
   </div>

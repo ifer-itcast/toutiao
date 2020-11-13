@@ -107,7 +107,7 @@
     </div>
     <!-- 评论回复 -->
     <van-popup v-model="isReplyShow" position="bottom" style="height: 100%;">
-      <comment-reply :comment="currentComment"/>
+      <comment-reply :comment="currentComment" @close="isReplyShow = false" />
     </van-popup>
     <!-- /评论回复 -->
   </div>
@@ -207,6 +207,7 @@ export default {
       this.commentList.unshift(data.new_obj)
     },
     onReplyClick(comment) {
+      console.log(comment)
       this.currentComment = comment
       this.isReplyShow = true
     }

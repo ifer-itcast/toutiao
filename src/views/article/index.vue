@@ -81,7 +81,10 @@
         <!-- /底部区域 -->
         <!-- 发布评论的弹层 -->
         <van-popup v-model="isPostShow" position="bottom">
-          <comment-post :target="article.art_id" @post-success="onPostSuccess"></comment-post>
+          <comment-post
+            :target="article.art_id"
+            @post-success="onPostSuccess"
+          ></comment-post>
         </van-popup>
       </div>
       <!-- /加载完成-文章详情 -->
@@ -101,6 +104,11 @@
       </div>
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
     </div>
+    <!-- 评论回复 -->
+    <van-popup v-model="isReplyShow" position="bottom" style="height: 100%;">
+      hello
+    </van-popup>
+    <!-- /评论回复 -->
   </div>
 </template>
 
@@ -135,7 +143,8 @@ export default {
       followLoading: false, // 关注按钮的 loading 状态
       totalCommentCount: 0,
       isPostShow: false, // 控制评论弹层显示/隐藏
-      commentList: [] // 评论列表
+      commentList: [], // 评论列表
+      isReplyShow: false
     }
   },
   computed: {},

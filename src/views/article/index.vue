@@ -80,7 +80,7 @@
         <!-- /底部区域 -->
         <!-- 发布评论的弹层 -->
         <van-popup v-model="isPostShow" position="bottom">
-          <comment-post></comment-post>
+          <comment-post :target="article.art_id"></comment-post>
         </van-popup>
       </div>
       <!-- /加载完成-文章详情 -->

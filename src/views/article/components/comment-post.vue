@@ -10,15 +10,21 @@
       placeholder="请输入留言"
       show-word-limit
     />
-    <van-button class="post-btn">发布</van-button>
+    <van-button class="post-btn" @click="onPost">发布</van-button>
   </div>
 </template>
 
 <script>
+import { addComment } from '@/api/comment'
 export default {
   name: 'CommentPost',
   components: {},
-  props: {},
+  props: {
+    target: {
+      type: [Number, String, Object],
+      required: true
+    }
+  },
   data() {
     return {
       message: ''
@@ -28,7 +34,20 @@ export default {
   watch: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    async onPost() {
+      try {
+        const { data } = await addComment({
+          target: this.target, // 评论的目标 ID（评论文章即为文章ID，对评论进行回复则为评论ID）
+          content: this.message, // 评论的内容
+          art_id: null
+        })
+        console.log(data)
+      } catch (err) {
+        this.$toast.fail('发布失败')
+      }
+    }
+  }
 }
 </script>
 

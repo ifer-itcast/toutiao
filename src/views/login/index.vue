@@ -40,7 +40,7 @@
         </template>
       </van-field>
       <div class="login-btn-wrap">
-        <van-button class="login-btn" block type="info" native-type="button">
+        <van-button class="login-btn" block type="info" native-type="submit">
           提交
         </van-button>
       </div>

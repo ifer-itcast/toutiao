@@ -3,7 +3,7 @@
     <!-- 子路由出口 -->
     <router-view></router-view>
     <!-- 标签导航栏 -->
-    <van-tabbar v-model="active" class="layout-tabbar" route>
+    <van-tabbar class="layout-tabbar" route>
       <van-tabbar-item icon="home-o" to="/">
         <i slot="icon" class="iconfont iconshouye"></i>
         <span class="text">首页</span>
@@ -29,7 +29,6 @@ export default {
   name: 'LayoutIndex',
   data() {
     return {
-      active: 0
     }
   }
 }

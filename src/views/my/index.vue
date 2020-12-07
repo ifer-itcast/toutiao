@@ -76,7 +76,7 @@ export default {
   },
   created() {
     // 如果用户登录了，才需要获取自己的信息
-    if (this.user) {
+    if (this.user) { // 例如在此页面用户把 token 清了，再刷新，防止调用接口
       this.loadUserInfo()
     }
   },

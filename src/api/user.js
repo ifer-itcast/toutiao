@@ -5,7 +5,7 @@ import store from '@/store'
 export const login = data => {
   return request({
     method: 'POST',
-    url: '/app/v1_0/authorizations',
+    url: '/v1_0/authorizations',
     data
   })
 }
@@ -14,7 +14,7 @@ export const login = data => {
 export const sendSms = mobile => {
   return request({
     method: 'GET',
-    url: `/app/v1_0/sms/codes/${mobile}`
+    url: `/v1_0/sms/codes/${mobile}`
   })
 }
 
@@ -22,7 +22,7 @@ export const sendSms = mobile => {
 export const getUserInfo = () => {
   return request({
     method: 'GET',
-    url: '/app/v1_0/user',
+    url: '/v1_0/user',
     // 携带请求头信息
     headers: {
       Authorization: `Bearer ${store.state.user.token}`

@@ -79,6 +79,8 @@ export default {
     if (this.user) { // 例如在此页面用户把 token 清了，再刷新，防止调用接口
       this.loadUserInfo()
     }
+    // 在没有登录的情况下，直接调用下面代码，此时访问 http://localhost:8080/#/my，思考为什么没有请求记录产生？
+    // this.loadUserInfo()
   },
   methods: {
     onLogout() {

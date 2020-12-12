@@ -2,7 +2,12 @@
   <div class="my-container">
     <!-- 未登录头部 -->
     <div class="header not-login">
-      <div class="login-btn" @click="$router.push('/login')">
+      <div class="login-btn" @click="$router.push({
+        name: 'login',
+        query: {
+          redirect: '/my'
+        }
+      })">
         <img class="mobile-img" src="~@/assets/mobile.png" alt="" />
         <span class="text">登录 / 注册</span>
       </div>

@@ -37,7 +37,13 @@
     </div>
     <!-- 未登录头部 -->
     <div v-else class="header not-login">
-      <div class="login-btn" @click="$router.push('/login')">
+      <!-- 在跳转到登录页面的时候携带了参数 redirect -->
+      <div class="login-btn" @click="$router.push({
+        name: 'login',
+        query: {
+          redirect: '/my'
+        }
+      })">
         <img class="mobile-img" src="~@/assets/mobile.png" alt="" />
         <span class="text">登录 / 注册</span>
       </div>

@@ -45,6 +45,8 @@ export default {
       }
     },
     highlight(text) {
+      // eslint-disable-next-line no-eval
+      // return text.replace(eval('/' + this.searchText + '/gi'), `<span class="active">${this.searchText}</span>`)
       const reg = new RegExp(this.searchText, 'gi')
       return text.replace(reg, `<span class="active">${this.searchText}</span>`)
     }

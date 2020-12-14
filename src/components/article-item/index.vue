@@ -57,7 +57,11 @@ export default {
   }
   // 右侧的一张图片
   .van-cell__value {
+    // https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex
     flex: unset;
+    // unset
+    // 属性是默认继承属性，该值等同于 inherit
+    // 该属性是非继承属性，该值等同于 initial
     width: 232px;
     height: 146px;
     padding-left: 25px;

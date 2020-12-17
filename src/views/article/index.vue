@@ -127,7 +127,6 @@ export default {
           JSON.parse('xxx')
         } */
         this.article = data.data
-        // 这里涉及到了根据 article 中的数据显示/隐藏最外层元素，刚开始 $nextTick 也是获取不到 this.$refs['article-content'] 的
         setTimeout(() => {
           this.previewImage()
         }, 0)

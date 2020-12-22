@@ -112,7 +112,10 @@ export default {
         this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
         // 跳转回原来的页面
-        this.$router.back()
+        // this.$router.back()
+        // 所有跳转到登录页都要求带一个 redirect 参数
+        // 目的是登录成功后还是跳转到来的地方
+        this.$router.push(this.$route.query.redirect || '/')
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')

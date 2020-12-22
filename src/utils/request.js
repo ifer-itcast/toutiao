@@ -47,7 +47,10 @@ request.interceptors.response.use(function (response) {
       // this.$router.push => 组件里面可以这样条
       // router.push('/login')
       // 登录路由其实没有必要，不期望保留历史记录
-      return router.replace('/login')
+      // return router.replace('/login')
+      // console.log(router, 2333)
+      // return false
+      return redirectLogin()
     }
     // 用 refresh_token 获取新的 token
     // 直接用现有的 request 去请求，假如请求的结果还是 401，会形成死循环
@@ -69,7 +72,7 @@ request.interceptors.response.use(function (response) {
       return request(error.config)
     } catch (e) {
       // 用 refresh_token 换取 token 的时候也出错了
-      return router.replace('/login')
+      return redirectLogin()
     }
     // Toast.fail('无效的TOKEN')
   } else if (status === 403) {
@@ -84,5 +87,15 @@ request.interceptors.response.use(function (response) {
   // 错误错误
   return Promise.reject(error)
 })
+
+function redirectLogin() {
+  router.replace({
+    name: 'login',
+    query: {
+      // router.currentRoute => this.$route
+      redirect: router.currentRoute.fullPath
+    }
+  })
+}
 
 export default request

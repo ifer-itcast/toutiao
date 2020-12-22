@@ -115,6 +115,7 @@ export default {
         // this.$router.back()
         // 所有跳转到登录页都要求带一个 redirect 参数
         // 目的是登录成功后还是跳转到来的地方
+        this.$store.commit('removeCachePage', 'LayoutIndex')
         this.$router.push(this.$route.query.redirect || '/')
       } catch (err) {
         if (err.response.status === 400) {

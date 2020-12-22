@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div class="article-list" ref="article-list">
     <van-pull-refresh
       v-model="isRefreshLoading"
       @refresh="onRefresh"
@@ -32,6 +32,7 @@
 <script>
 import { getArticles } from '@/api/article'
 import ArticleItem from '@/components/article-item'
+import { debounce } from 'lodash'
 
 export default {
   name: 'ArticleList',
@@ -52,7 +53,8 @@ export default {
       timestamp: null, // 请求获取下一页数据的时间戳
       error: false, // 控制列表失败的提示状态
       isRefreshLoading: false, // 控制下拉刷新的 loading 状态
-      refreshSuccessText: '刷新成功' // 下拉刷新成功提示文本
+      refreshSuccessText: '刷新成功', // 下拉刷新成功提示文本
+      scrollT: 0
     }
   },
   methods: {
@@ -115,6 +117,21 @@ export default {
         this.refreshSuccessText = '刷新失败'
       }
     }
+  },
+  mounted() {
+    // 1. 滚动的时候记录一下滚动的位置
+    const articleList = this.$refs['article-list']
+    articleList.onscroll = debounce(() => {
+      this.scrollT = articleList.scrollTop
+    }, 100)
+  },
+  activated() {
+    // 从缓存当中激活的时候触发
+    // 2. 当组件从缓存列表当中激活的时候，把记录的滚动的位置给 article-list 的 scrollTop
+    this.$refs['article-list'].scrollTop = this.scrollT
+  },
+  deactivated() {
+    // 从缓存当中失活的时候触发
   }
 }
 </script>

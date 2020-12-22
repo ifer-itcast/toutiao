@@ -10,7 +10,7 @@
       </van-tabbar-item>
       <van-tabbar-item icon="home-o" to="/qa">
         <i slot="icon" class="iconfont iconwenda"></i>
-        <span class="text">问答</span>
+        <span class="text">你懂的</span>
       </van-tabbar-item>
       <van-tabbar-item icon="home-o" to="/video">
         <i slot="icon" class="iconfont iconshipin"></i>

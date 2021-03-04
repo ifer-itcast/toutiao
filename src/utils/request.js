@@ -5,7 +5,7 @@ import { Toast } from 'vant'
 import router from '@/router'
 
 const request = axios.create({
-  // baseURL: 'http://ttapi.research.itcast.cn/', // 接口的基准路径
+  baseURL: 'http://ttapi.research.itcast.cn/', // 接口的基准路径
   transformResponse: [function (data) {
     try {
       return JSONbig.parse(data)

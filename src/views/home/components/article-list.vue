@@ -32,6 +32,7 @@
 <script>
 import { getArticles } from '@/api/article'
 import ArticleItem from '@/components/article-item'
+import { debounce } from 'lodash'
 
 export default {
   name: 'ArticleList',
@@ -119,9 +120,9 @@ export default {
   },
   mounted() {
     const aDom = this.$refs.articleListRef
-    aDom.onscroll = () => {
+    aDom.onscroll = debounce(() => {
       this.scrollTop = aDom.scrollTop
-    }
+    }, 100)
   },
   activated () {
     this.$refs.articleListRef.scrollTop = this.scrollTop

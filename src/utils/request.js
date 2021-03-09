@@ -4,8 +4,13 @@ import JSONbig from 'json-bigint'
 import { Toast } from 'vant'
 import router from '@/router'
 
+// 如果说是生产环境，就用具体的生产环境的接口
+let baseURL = '/app'
+if (process.env.NODE_ENV === 'production') {
+  baseURL = 'http://toutiao-app.itheima.net/'
+}
 const request = axios.create({
-  // baseURL: 'http://ttapi.research.itcast.cn/', // 接口的基准路径
+  baseURL, // 接口的基准路径
   transformResponse: [
     function(data) {
       try {
@@ -70,7 +75,7 @@ request.interceptors.response.use(
         // 这里不建议用 request 去调用了，万一用 request 调用再出现了 401，就会形成死循环，解决办法就是封装一个新的请求函数
           const { data: { data: { token } } } = await requestToken({
             method: 'PUT',
-            url: '/app/v1_0/authorizations',
+            url: '/v1_0/authorizations',
             headers: {
               Authorization: `Bearer ${user.refresh_token}`
             }

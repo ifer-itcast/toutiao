@@ -35,8 +35,18 @@ request.interceptors.request.use(
     return Promise.reject(error)
   }
 )
+console.log(router)
 // replace 和 push 的差异，replace 不会形成历史记录，登录页一般也不希望形成历史记录
-const login = () => router.replace('/login')
+const login = () => {
+  console.log(router.currentRoute.fullPath, 888)
+  router.replace({
+    name: 'login',
+    query: {
+      // router.currentRoute 就相当于你组件当中使用的 this.$router
+      redirect: router.currentRoute.fullPath
+    }
+  })
+}
 
 request.interceptors.response.use(
   function(response) {

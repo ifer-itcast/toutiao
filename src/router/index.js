@@ -42,7 +42,7 @@ const routes = [
         path: '/qa',
         name: 'qa',
         component: () => import('@/views/qa'),
-        meta: { requiresAuth: false }
+        meta: { requiresAuth: true }
       },
       {
         path: '/video',

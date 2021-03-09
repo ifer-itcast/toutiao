@@ -1,11 +1,15 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive :include="cacheComponents">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'App'
+  name: 'App',
+  computed: mapState(['cacheComponents'])
 }
 </script>
 

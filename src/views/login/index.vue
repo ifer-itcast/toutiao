@@ -113,6 +113,7 @@ export default {
         this.$toast.success('登录成功')
         // 跳转回原来的页面
         // this.$router.back()
+        this.$store.commit('rmCacheComponents', 'LayoutIndex')
         this.$router.push(this.$route.query.redirect || '/')
       } catch (err) {
         if (err.response.status === 400) {
